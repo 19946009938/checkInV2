@@ -1,20 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import {View} from "@tarojs/components";
-import {AtCalendar} from "taro-ui"
+import {AtMessage, AtModal} from "taro-ui"
+
 import Taro from "@tarojs/taro";
 import moment from 'moment'
 import {connect} from "react-redux";
 import {shiftTable} from "../../redux/actions/shiftTable";
-import {marks} from "../../redux/actions/marks";
+import {marks, askOff, overtime} from "../../redux/actions/marks";
+import {footerTab} from "../../redux/actions/footerTab";
+import Calendar from "../calendarV1";
 
 import "taro-ui/dist/style/components/calendar.scss";
+import "taro-ui/dist/style/components/modal.scss";
+import "taro-ui/dist/style/components/message.scss";
 
 function MyCalendar(props) {
   const [selfShift, setSelfShfit] = useState(undefined)
   const [selfGroup, setSelfGroup] = useState(undefined)
   const [shiftTable, setShiftTable] = useState([])
   const [selectedMonth, setSelectedMonth] = useState(moment().format('yyyy-MM-DD'))
-
+  const [longClick, setLongClick] = useState('')
+  const [askIsOpend, setAskIsOpend] = useState(false)
+  const [overtimeIsOpend, setOvertimeIsOpend] = useState(false)
+  const [askDays, setAskDays] = useState({days: [], nights: []})
+  const [overtimeDays, setOvertimeDays] = useState({days: [], nights: []})
+  const [nickName, setNickName] = useState('')
 
   const db = Taro.cloud.database()
   const _ = db.command
@@ -25,6 +35,7 @@ function MyCalendar(props) {
       key: 'userInfo',
       success: (res) => {
         const nickName = res.data.nickName
+        setNickName(nickName)
         db.collection('yeUser')
           .where({nickName})
           .get()
@@ -60,6 +71,7 @@ function MyCalendar(props) {
     if (shiftTable.length === 0) return false
     // 获取当月日期
     const lastDays = moment(selectedMonth).endOf('month').diff(moment(selectedMonth), 'day')
+
     let dudy = {day: [], night: []}
     for (let i = 0; i <= lastDays; i++) {
       // 4天白班开始还是3天白班开始
@@ -81,40 +93,184 @@ function MyCalendar(props) {
       }
     }
     props.shiftTable(dudy)
+    props.marks(dudy)
   }, [shiftTable, selectedMonth])
 
-  const onDayClick = e => {
-    console.log(e.value)
+  // 获取我的请假加班记录
+  useEffect(() => {
+    db.collection('checkin')
+      .where({
+        nickName,
+        date: _.lte(moment(selectedMonth).endOf('month').toDate()) && _.gte(moment(selectedMonth).startOf('month').toDate()),
+      })
+      .get()
+      .then(res => {
+        const askData = {day: [], night: []}
+        const overData = {day: [], night: []}
+        res.data.filter(c => c.type === 'askOff').forEach(c => askData[c.shift] = [...askData[c.shift], moment(c.date).format('yyyy-MM-DD')])
+        res.data.filter(c => c.type === 'overtime').forEach(c => overData[c.shift] = [...overData[c.shift], moment(c.date).format('yyyy-MM-DD')])
+        props.askOff(askData)
+        props.overtime(overData)
+      }).catch(error => {
+      console.log(error)
+    })
+
+  }, [nickName, selectedMonth])
+
+  const onDayClick = e => console.log(e)
+
+  const onDayLongClick = e => setLongClick(e.value)
+
+  const onMonthChange = e => setSelectedMonth(moment(e).format('MM') === moment().format('MM') ? e : moment(e).startOf('month').format('yyyy-MM-DD'))
+
+  const onSelectDate = value => {
+    const selectedDays = moment(value.end).diff(moment(value.start), 'day')
+    if (value.end !== '' && props.footerTabResult === 1) {
+      // 这里是请假界面
+      let askOffDays = {days: [], nights: []}
+      for (let i = 0; i <= selectedDays; i++) {
+        const {day, night} = props.shiftTableResult
+        askOffDays.days = [...askOffDays.days, ...day.filter(c => moment(c).format('yyyy-MM-DD') === moment(value.start).add(i, 'day').format('yyyy-MM-DD'))]
+        askOffDays.nights = [...askOffDays.nights, ...night.filter(c => moment(c).format('yyyy-MM-DD') === moment(value.start).add(i, 'day').format('yyyy-MM-DD'))]
+
+      }
+      if (askOffDays.days.length === 0 && askOffDays.nights.length === 0) {
+        Taro.atMessage({message: '你选择中的日期中无上班班次，请确认！', type: 'error'})
+        return false
+      }
+      setAskDays(askOffDays)
+      setAskIsOpend(true)
+    }
+    if (value.end !== '' && props.footerTabResult === 2) {
+      // 这里是请假界面
+      let overtimeDays = []
+      for (let i = 0; i <= selectedDays; i++) {
+        const {day, night} = props.shiftTableResult
+        if (day.includes(moment(value.start).add(i, 'day').format('yyyy-MM-DD')) === false) overtimeDays = [...overtimeDays, moment(value.start).add(i, 'day').format('yyyy-MM-DD')]
+        if (night.includes(moment(value.start).add(i, 'day').format('yyyy-MM-DD')) === false) overtimeDays = [...overtimeDays, moment(value.start).add(i, 'day').format('yyyy-MM-DD')]
+      }
+      overtimeDays = [...new Set(overtimeDays)]
+
+      if (overtimeDays.length === 0) {
+        Taro.atMessage({message: '你选择中的日期中有正常班次！', type: 'error'})
+        return false
+      }
+      setOvertimeDays(overtimeDays)
+      setOvertimeIsOpend(true)
+    }
   }
 
-  const onDayLongClick = e => {
-    console.log(e.value)
+  const askOffConfirm = () => {
+    const days = askDays.days.map(c => ({
+      nickName,
+      type: 'askOff',
+      createTime: db.serverDate(),
+      date: new Date(c),
+      shift: 'day'
+    }))
+    const nights = askDays.nights.map(c => ({
+      nickName,
+      type: 'askOff',
+      createTime: db.serverDate(),
+      date: new Date(c),
+      shift: 'night'
+    }))
+    const asks = [...days, ...nights]
+
+    asks.forEach(c => {
+      db.collection('checkin')
+        .add({data: c})
+        .then(res => {
+          Taro.atMessage({message: `请假申请成功！`, type: 'success'})
+        })
+        .catch(error => {
+          Taro.atMessage({
+            message: `请假操作报错了：${error.errCode === -502001 ? `${c.date}已申请过了` : error.errMsg}`,
+            type: 'error'
+          })
+          return false
+        })
+    })
+    setAskIsOpend(false)
   }
 
-  const onMonthChange = e => {
-    setSelectedMonth(e)
+  const nightConfirm = () => {
+    const overtimes = overtimeDays.map(c => ({
+      nickName,
+      type: 'overtime',
+      createTime: db.serverDate(),
+      date: new Date(c),
+      shift: 'night'
+    }))
 
+    overtimes.forEach(c => {
+      db.collection('checkin')
+        .add({data: c})
+        .then(res => {
+          Taro.atMessage({message: `加班申请成功！`, type: 'success'})
+        })
+        .catch(error => {
+          console.log(error)
+          Taro.atMessage({
+            message: `请假操作报错了：${error.errCode === -502001 ? `${c.date}已申请过了` : error.errMsg}`,
+            type: 'error'
+          })
+          return false
+        })
+    })
+    setOvertimeIsOpend(false)
+  }
+
+  const dayConfirm = () => {
+    console.log('白班')
   }
 
   return (
     <View>
-      <AtCalendar
-        marks={props.marksResult}
+      <AtMessage/>
+      <AtModal
+        isOpened={askIsOpend}
+        title='请假操作'
+        confirmText='确定'
+        onClose={() => setAskIsOpend(false)}
+        onConfirm={askOffConfirm}
+        closeOnClickOverlay={true}
+        content={`白班请假${askDays.days.length}天：${askDays.days}\n\n夜班请假${askDays.nights.length}天：${askDays.nights}`}
+      />
+      <AtModal
+        isOpened={overtimeIsOpend}
+        title='加班操作'
+        confirmText='夜班'
+        cancelText='白班'
+        onClose={() => setOvertimeIsOpend(false)}
+        onConfirm={nightConfirm}
+        onCancel={dayConfirm}
+        closeOnClickOverlay={true}
+      />
+      <Calendar
+        mode={'normal'}
+        marks={props.marksResult.marks}
+        extraInfo={props.marksResult.extra}
         minDate={moment().format('yyyy-MM-DD')}
         isMultiSelect
         isVertical
         onDayClick={onDayClick}
-        onDayLongClick={onDayLongClick}
-        onMonthChange={onMonthChange}
+        onDayLongPress={onDayLongClick}
+        onCurrentViewChange={onMonthChange}
+        onSelectDate={onSelectDate}
       />
     </View>
   );
 }
 
+
 export default connect(
   state => ({
     shiftTableResult: state.shiftTable,
     marksResult: state.marks,
+    askOffResult: state.askOff,
+    overtimeResult: state.overtime,
+    footerTabResult: state.footerTab
 
-  }), {shiftTable, marks}
+  }), {shiftTable, askOff, overtime, marks, footerTab}
 )(MyCalendar);

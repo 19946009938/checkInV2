@@ -9,7 +9,7 @@
     "css": "none"
   },
   "scripts": {
-    "build:weapp": "NODE_ENV='production taro build --type weapp",
+    "build:weapp": "taro build --type weapp",
     "build:swan": "taro build --type swan",
     "build:alipay": "taro build --type alipay",
     "build:tt": "taro build --type tt",
@@ -37,7 +37,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.17.10",
     "@babel/runtime": "^7.7.7",
-    "@tarojs/cli": "3.4.9",
+    "@tarojs/cli": "^3.4.9",
     "@tarojs/components": "3.4.9",
     "@tarojs/plugin-framework-react": "3.4.9",
     "@tarojs/react": "3.4.9",
@@ -51,6 +51,8 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "taro-calendar-customizable": "^2.1.2",
+    "taro-react-calendar": "^1.0.9",
     "taro-ui": "^3.1.0-beta.2"
   },
   "devDependencies": {

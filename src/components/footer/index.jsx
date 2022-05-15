@@ -6,7 +6,6 @@ import {AtTabBar} from 'taro-ui'
 import "taro-ui/dist/style/components/icon.scss";
 import "taro-ui/dist/style/components/tab-bar.scss";
 
-
 import {FOOTER, FOOTERICON} from "./constant";
 import {footerTab} from "../../redux/actions/footerTab";
 import {askOff} from "../../redux/actions/askOff";
@@ -24,7 +23,8 @@ class Footer extends Component {
 
   handleClick = (value) => {
     if (value === 0) this.props.marks(this.props.shiftTableRuslt)
-    if (value === 1) this.props.marks([])
+    // if (value === 1) this.props.marks({day: [], night: []})
+    // if (value === 2) this.props.marks({day: [], night: []})
     this.props.footerTab(value)
   }
 

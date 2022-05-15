@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46644e43-8830-4bb4-92eb-5d8cb31e3cf1" name="Default Changelist" comment="" />
+    <list default="true" id="46644e43-8830-4bb4-92eb-5d8cb31e3cf1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/day/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/days/index.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/days/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/index.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/index.less" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/calendar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/footer/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footer/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/actions/marks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/marks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/constants/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/reducers/marks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/marks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,7 +38,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/redux/reducers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
@@ -42,6 +61,19 @@
       <recent name="D:\code\taro\checkInV2\src\pages" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="build:weapp" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build:weapp" />
+      </scripts>
+      <node-interpreter value="project" />
+      <package-manager value="npm" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -55,11 +87,26 @@
       <workItem from="1652337815189" duration="11571000" />
       <workItem from="1652405575127" duration="2211000" />
       <workItem from="1652408503349" duration="15754000" />
-      <workItem from="1652436032330" duration="11973000" />
+      <workItem from="1652436032330" duration="18147000" />
+      <workItem from="1652533882717" duration="1327000" />
+      <workItem from="1652538066091" duration="1041000" />
+      <workItem from="1652587842397" duration="22185000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
