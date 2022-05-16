@@ -8,25 +8,12 @@ import "taro-ui/dist/style/components/tab-bar.scss";
 
 import {FOOTER, FOOTERICON} from "./constant";
 import {footerTab} from "../../redux/actions/footerTab";
-import {askOff} from "../../redux/actions/askOff";
-import {shiftTable} from "../../redux/actions/shiftTable";
-import {marks} from "../../redux/actions/marks";
 
-@connect(state => ({
-  footerTabResult: state.footerTab,
-  askOffResult: state.askOff,
-  shiftTableRuslt: state.shiftTable,
-  marksResult: state.marks,
-}), {footerTab, askOff, shiftTable, marks})
+@connect(state => ({footerTabResult: state.footerTab,}), {footerTab})
 
 class Footer extends Component {
 
-  handleClick = (value) => {
-    if (value === 0) this.props.marks(this.props.shiftTableRuslt)
-    // if (value === 1) this.props.marks({day: [], night: []})
-    // if (value === 2) this.props.marks({day: [], night: []})
-    this.props.footerTab(value)
-  }
+  handleClick = (value) => this.props.footerTab(value)
 
   render() {
     return (

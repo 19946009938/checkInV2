@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46644e43-8830-4bb4-92eb-5d8cb31e3cf1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/day/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/days/index.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/days/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/index.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/index.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/calendarV1/utils.ts" afterDir="false" />
+    <list default="true" id="46644e43-8830-4bb4-92eb-5d8cb31e3cf1" name="Default Changelist" comment="first">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/calendar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/footer/constant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footer/constant.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/footer/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footer/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/actions/marks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/marks.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/constants/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/reducers/marks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/marks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +19,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="293ABZpLw8SjxNXTwcTajfOdM1v" />
   <component name="ProjectViewState">
@@ -62,11 +61,11 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="build:weapp" type="js.build_tools.npm" nameIsGenerated="true">
+    <configuration name="dev:weapp" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="build:weapp" />
+        <script value="dev:weapp" />
       </scripts>
       <node-interpreter value="project" />
       <package-manager value="npm" />
@@ -90,8 +89,17 @@
       <workItem from="1652436032330" duration="18147000" />
       <workItem from="1652533882717" duration="1327000" />
       <workItem from="1652538066091" duration="1041000" />
-      <workItem from="1652587842397" duration="22185000" />
+      <workItem from="1652587842397" duration="25580000" />
+      <workItem from="1652664004699" duration="18797000" />
     </task>
+    <task id="LOCAL-00001" summary="first">
+      <created>1652618366370</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1652618366370</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,5 +116,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first" />
+    <option name="LAST_COMMIT_MESSAGE" value="first" />
   </component>
 </project>

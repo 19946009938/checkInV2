@@ -3,4 +3,5 @@ export const FOOTERTAB = 'footerTab'
 export const SHIFTTABLE = 'shiftTable'
 export const MARKS = 'marks'
 export const OVERTIME = 'overtime'
+export const CLEAR = 'clear'
 
