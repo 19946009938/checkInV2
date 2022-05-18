@@ -5,7 +5,6 @@ import Footer from "../../components/footer";
 import MyCalendar from "../../components/calendar";
 
 export default class Index extends Component {
-
   // 小程序转发功能
   onShareAppMessage(res) {
     if (res.from === 'button') {
@@ -18,7 +17,6 @@ export default class Index extends Component {
   }
 
   render() {
-
     return (
       <View>
         <Login/>

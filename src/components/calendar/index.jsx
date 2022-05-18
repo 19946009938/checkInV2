@@ -14,7 +14,16 @@ import "taro-ui/dist/style/components/calendar.scss";
 import "taro-ui/dist/style/components/modal.scss";
 import "taro-ui/dist/style/components/message.scss";
 import "taro-ui/dist/style/components/noticebar.scss";
-import {addAskOff, addOvertime, calcShifts, getGroups, getOption, getShfitTables, onSelectedDate} from "./function";
+import {
+  addAskOff,
+  addOvertime,
+  askLimits,
+  calcShifts,
+  getGroups,
+  getOption,
+  getShfitTables,
+  onSelectedDate, overLimits
+} from "./function";
 
 function MyCalendar(props) {
   const [selfShift, setSelfShfit] = useState(undefined)
@@ -72,22 +81,30 @@ function MyCalendar(props) {
     onSelectedDate(value, props, setAskDays, setAskIsOpend, setOvertimeDays, setOvertimeIsOpend, refresh, setRefresh)
     setRefresh(refresh + 1)
   }
+
   // 请假确认
   const askOffConfirm = () => {
-    addAskOff(db, askDays, nickName, setAskIsOpend)
-    setRefresh(refresh + 1)
+    // 请假限定设置
+    if (askLimits(allHistory, nickName, askDays)) {
+      addAskOff(db, askDays, nickName, setAskIsOpend)
+      setRefresh(refresh + 1)
+    }
   }
 
   // 加夜班确认
   const nightConfirm = () => {
-    addOvertime(db, nickName, overtimeDays, 'night', setOvertimeIsOpend)
-    setRefresh(refresh + 1)
+    if (overLimits(allHistory, overtimeDays, 'night')) {
+      addOvertime(db, nickName, overtimeDays, 'night', setOvertimeIsOpend)
+      setRefresh(refresh + 1)
+    }
   }
 
   // 加白班确认
   const dayConfirm = () => {
-    addOvertime(db, nickName, overtimeDays, 'day', setOvertimeIsOpend)
-    setRefresh(refresh + 1)
+    if (overLimits(allHistory, overtimeDays, 'day')) {
+      addOvertime(db, nickName, overtimeDays, 'day', setOvertimeIsOpend)
+      setRefresh(refresh + 1)
+    }
   }
 
   const removeConfirm = () => {

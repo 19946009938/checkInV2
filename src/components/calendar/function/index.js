@@ -96,11 +96,10 @@ export const onSelectedDate = (value, props, setAskDays, setAskIsOpend, setOvert
 export const getOption = (db, _, props, nickName, selectedMonth, setAllHistory) => {
   db.collection('checkin')
     .where({
-      date: _.gte(new Date(selectedMonth)).and(_.lte(moment(selectedMonth).endOf('month').toDate())),
+      date: _.gte(moment(selectedMonth).startOf('month').toDate()).and(_.lte(moment(selectedMonth).endOf('month').toDate())),
     })
     .get()
     .then(res => {
-      console.log(res.data)
       setAllHistory(res.data)
       const askData = {day: [], night: []}
       const overData = {day: [], night: []}
@@ -175,4 +174,44 @@ export const getGroups = (db, setNickName, setSelfShfit, setSelfGroup) => {
     }
   }).catch(error => {
   })
+}
+
+// 请假限定
+export const askLimits = (allHistory, nickName, askDays) => {
+  // 限定请假天数
+  const days = 3
+  if (allHistory.filter(c => c.nickName === nickName && c.type === 'askOff').length + askDays.days.length + askDays.nights.length > days) {
+    Taro.atMessage({message: `请假天数大于${days}天了`, type: 'error'})
+    return false
+  }
+
+  const askSubOver = (c, type) => {
+    const askCounts = allHistory.filter(p => p.type === 'askOff' && p.shift === type && moment(p.date).format('yyyy-MM-DD') === c)
+    const overCounts = allHistory.filter(p => p.type === 'overtime' && p.shift === type && moment(p.date).format('yyyy-MM-DD') === c)
+    if ((askCounts.length - overCounts.length) > 1) return true
+  }
+
+  // 限定请假当天人数，请假人数 - 加班人数 <=1
+  const limitDays = askDays.days.map(c => askSubOver(c, 'day'))
+  const limitNights = askDays.nights.map(c => askSubOver(c, 'night'))
+  if (limitDays.includes(true) || limitNights.includes(true)) {
+    Taro.atMessage({message: '当天请假限额已满,如需请假，可邀请同事加班后再试', type: 'warning'})
+    return false
+  }
+  return true
+}
+
+export const overLimits = (allHistory, overtimeDays, type) => {
+  // 加班确认，请假人数 - 加班人数 >=1,才允许加班
+  const askSubOver = (c, type) => {
+    const askCounts = allHistory.filter(p => p.type === 'askOff' && p.shift === type && moment(p.date).format('yyyy-MM-DD') === c)
+    const overCounts = allHistory.filter(p => p.type === 'overtime' && p.shift === type && moment(p.date).format('yyyy-MM-DD') === c)
+    if ((askCounts.length - overCounts.length) < 1) return true
+  }
+  const limitDays = overtimeDays.map(c => askSubOver(c, type))
+  if (limitDays.includes(true)) {
+    Taro.atMessage({message: '当天加班限额已满，请联系你的主管', type: 'warning'})
+    return false
+  }
+  return true
 }

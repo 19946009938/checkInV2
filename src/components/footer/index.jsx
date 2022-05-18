@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View} from "@tarojs/components";
+import Taro from "@tarojs/taro";
 import {connect} from "react-redux";
 import {AtTabBar} from 'taro-ui'
 
@@ -12,8 +13,10 @@ import {footerTab} from "../../redux/actions/footerTab";
 @connect(state => ({footerTabResult: state.footerTab,}), {footerTab})
 
 class Footer extends Component {
-
-  handleClick = (value) => this.props.footerTab(value)
+  handleClick = (value) => {
+    this.props.footerTab(value)
+    if (value === 2) Taro.reLaunch({url: '/pages/center/index'})
+  }
 
   render() {
     return (

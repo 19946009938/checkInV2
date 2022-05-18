@@ -50,13 +50,17 @@ function UserSetting(props) {
         data: {
           shift: shiftSelected,
           group: groupSelected,
-          nickName: userInfo.nickName
+          nickName: userInfo.nickName,
+          permissions: 'normal'
         },
         success: (res) => {
           Taro.reLaunch({url: '/pages/index/index'})
         },
         fail: (error) => {
-          if (error.errCode === -502001) Taro.atMessage({message: `${userInfo.nickName}已提交完成，请勿重复提交，如有问题，请联系管理员`,type:'error'})
+          if (error.errCode === -502001) Taro.atMessage({
+            message: `${userInfo.nickName}已提交完成，请勿重复提交，如有问题，请联系管理员`,
+            type: 'error'
+          })
         }
       })
     }

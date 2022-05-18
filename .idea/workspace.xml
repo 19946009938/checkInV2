@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46644e43-8830-4bb4-92eb-5d8cb31e3cf1" name="Default Changelist" comment="first">
+    <list default="true" id="46644e43-8830-4bb4-92eb-5d8cb31e3cf1" name="Default Changelist" comment="优化请假和加班方式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/calendar/function/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/function/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/calendar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/calendar/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/footer/constant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footer/constant.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/footer/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footer/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/login/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/actions/marks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/actions/marks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/constants/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redux/reducers/marks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/reducers/marks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/userSetting/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/userSetting/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/userSetting/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/userSetting/index.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +38,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/center" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
@@ -50,11 +51,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\code\taro\checkInV2\src\pages\center" />
       <recent name="D:\code\taro\checkInV2\src\redux\reducers" />
       <recent name="D:\code\taro\checkInV2\src\redux\actions" />
       <recent name="D:\code\taro\checkInV2\src" />
       <recent name="D:\code\taro\checkInV2\src\redux" />
-      <recent name="D:\code\taro\checkInV2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\code\taro\checkInV2\src\pages" />
@@ -90,7 +91,10 @@
       <workItem from="1652533882717" duration="1327000" />
       <workItem from="1652538066091" duration="1041000" />
       <workItem from="1652587842397" duration="25580000" />
-      <workItem from="1652664004699" duration="18797000" />
+      <workItem from="1652664004699" duration="21721000" />
+      <workItem from="1652756310659" duration="4327000" />
+      <workItem from="1652837852513" duration="18463000" />
+      <workItem from="1652868083752" duration="5238000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <created>1652618366370</created>
@@ -99,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652618366370</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="优化请假和加班方式">
+      <created>1652704741598</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1652704741598</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,6 +130,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first" />
-    <option name="LAST_COMMIT_MESSAGE" value="first" />
+    <MESSAGE value="优化请假和加班方式" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化请假和加班方式" />
   </component>
 </project>

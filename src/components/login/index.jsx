@@ -24,7 +24,6 @@ function Login(props) {
     Taro.getUserProfile({
       desc: '用于完善会员资料',
       success: (res) => {
-        console.log(res.userInfo)
         //  添加用户信息到cookies;
         Taro.setStorage({key: 'userInfo', data: res.userInfo})
         setIsLogin(false)
