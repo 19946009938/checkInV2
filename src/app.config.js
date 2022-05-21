@@ -4,6 +4,7 @@ export default {
     'pages/userSetting/index',
     'pages/center/index',
     'pages/center/shiftSetting/index',
+    'pages/center/personalSetting/index',
   ],
   window: {
     backgroundTextStyle: 'light',

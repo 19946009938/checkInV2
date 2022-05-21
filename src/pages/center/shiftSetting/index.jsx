@@ -30,7 +30,7 @@ function ShiftSetting(props) {
     }).then(res => {
       if (res.data !== 'admin') {
         Taro.atMessage({message: '你没有权限访问该页面', type: 'warning'})
-        Taro.navigateTo({url: '/pages/center/index'})
+        Taro.reLaunch({url: '/pages/center/index'})
         return false
       }
     })

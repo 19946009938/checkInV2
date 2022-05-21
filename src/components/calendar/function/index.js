@@ -1,13 +1,15 @@
 import Taro from "@tarojs/taro";
 import moment from "moment";
+import {db} from "../../../functions/cloudDB";
 
-export const addOvertime = (db, nickName, overtimeDays, shift, setOvertimeIsOpend) => {
+export const addOvertime = (db, nickName, overtimeDays, shift, setOvertimeIsOpend, selfGroup) => {
   const overtimes = overtimeDays.map(c => ({
     nickName,
     type: 'overtime',
     createTime: db.serverDate(),
     date: new Date(c),
-    shift
+    shift,
+    group: selfGroup
   }))
 
   overtimes.forEach(c => {
@@ -28,20 +30,22 @@ export const addOvertime = (db, nickName, overtimeDays, shift, setOvertimeIsOpen
   setOvertimeIsOpend(false)
 }
 
-export const addAskOff = (db, askDays, nickName, setAskIsOpend) => {
+export const addAskOff = (db, askDays, nickName, setAskIsOpend, selfGroup) => {
   const days = askDays.days.map(c => ({
     nickName,
     type: 'askOff',
     createTime: db.serverDate(),
     date: new Date(c),
-    shift: 'day'
+    shift: 'day',
+    group: selfGroup
   }))
   const nights = askDays.nights.map(c => ({
     nickName,
     type: 'askOff',
     createTime: db.serverDate(),
     date: new Date(c),
-    shift: 'night'
+    shift: 'night',
+    group: selfGroup
   }))
   const asks = [...days, ...nights]
 
@@ -93,9 +97,10 @@ export const onSelectedDate = (value, props, setAskDays, setAskIsOpend, setOvert
 
 }
 
-export const getOption = (db, _, props, nickName, selectedMonth, setAllHistory) => {
+export const getOption = (db, _, props, nickName, selectedMonth, setAllHistory, selfGroup) => {
   db.collection('checkin')
     .where({
+      group: selfGroup,
       date: _.gte(moment(selectedMonth).startOf('month').toDate()).and(_.lte(moment(selectedMonth).endOf('month').toDate())),
     })
     .get()
@@ -201,6 +206,7 @@ export const askLimits = (allHistory, nickName, askDays) => {
   return true
 }
 
+// 加班限定
 export const overLimits = (allHistory, overtimeDays, type) => {
   // 加班确认，请假人数 - 加班人数 >=1,才允许加班
   const askSubOver = (c, type) => {
@@ -214,4 +220,18 @@ export const overLimits = (allHistory, overtimeDays, type) => {
     return false
   }
   return true
+}
+
+
+// remove确定
+export const remove = (nickName, longClick, props, setRemoveIsOpened, setRefresh, refresh) => {
+  db.collection('checkin')
+    .where({nickName, date: new Date(longClick)})
+    .remove()
+    .then(() => {
+      props.clear()
+      setRemoveIsOpened(false)
+      setRefresh(refresh + 1)
+    })
+    .catch(error => Taro.atMessage({message: error, type: "error"}))
 }

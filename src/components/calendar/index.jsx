@@ -22,8 +22,9 @@ import {
   getGroups,
   getOption,
   getShfitTables,
-  onSelectedDate, overLimits
+  onSelectedDate, overLimits, remove
 } from "./function";
+import {db, _} from "../../functions/cloudDB";
 
 function MyCalendar(props) {
   const [selfShift, setSelfShfit] = useState(undefined)
@@ -42,9 +43,6 @@ function MyCalendar(props) {
 
   const [clickDay, setClickDay] = useState(moment().startOf('day').format('yyyy-MM-DD'))
 
-  const db = Taro.cloud.database()
-  const _ = db.command
-
   // 获取我的所在组和所在系
   useEffect(() => getGroups(db, setNickName, setSelfShfit, setSelfGroup), [])
 
@@ -55,7 +53,7 @@ function MyCalendar(props) {
   useEffect(() => calcShifts(props, shiftTable, selectedMonth), [shiftTable, selectedMonth, refresh])
 
   // 获取我的请假加班记录
-  useEffect(() => getOption(db, _, props, nickName, selectedMonth, setAllHistory), [nickName, selectedMonth, refresh])
+  useEffect(() => getOption(db, _, props, nickName, selectedMonth, setAllHistory, selfGroup), [nickName, selectedMonth, refresh])
 
   // 点击我的排班跳转到今天
   useEffect(() => setSelectedMonth(moment().format('yyyy-MM-DD')), [props.footerTabResult])
@@ -77,7 +75,6 @@ function MyCalendar(props) {
 
   // 多选日期
   const onSelectDate = value => {
-
     onSelectedDate(value, props, setAskDays, setAskIsOpend, setOvertimeDays, setOvertimeIsOpend, refresh, setRefresh)
     setRefresh(refresh + 1)
   }
@@ -86,7 +83,7 @@ function MyCalendar(props) {
   const askOffConfirm = () => {
     // 请假限定设置
     if (askLimits(allHistory, nickName, askDays)) {
-      addAskOff(db, askDays, nickName, setAskIsOpend)
+      addAskOff(db, askDays, nickName, setAskIsOpend, selfGroup)
       setRefresh(refresh + 1)
     }
   }
@@ -94,7 +91,7 @@ function MyCalendar(props) {
   // 加夜班确认
   const nightConfirm = () => {
     if (overLimits(allHistory, overtimeDays, 'night')) {
-      addOvertime(db, nickName, overtimeDays, 'night', setOvertimeIsOpend)
+      addOvertime(db, nickName, overtimeDays, 'night', setOvertimeIsOpend, selfGroup)
       setRefresh(refresh + 1)
     }
   }
@@ -102,23 +99,13 @@ function MyCalendar(props) {
   // 加白班确认
   const dayConfirm = () => {
     if (overLimits(allHistory, overtimeDays, 'day')) {
-      addOvertime(db, nickName, overtimeDays, 'day', setOvertimeIsOpend)
+      addOvertime(db, nickName, overtimeDays, 'day', setOvertimeIsOpend, selfGroup)
       setRefresh(refresh + 1)
     }
   }
 
-  const removeConfirm = () => {
-    db.collection('checkin')
-      .where({nickName, date: new Date(longClick)})
-      .remove()
-      .then(() => {
-        props.clear()
-        setRemoveIsOpened(false)
-        setRefresh(refresh + 1)
+  const removeConfirm = () => remove(nickName, longClick, props, setRemoveIsOpened, setRefresh, refresh)
 
-      })
-      .catch(error => Taro.atMessage({message: error, type: "error"}))
-  }
 
   return (
     <View>

@@ -8,10 +8,9 @@ export default class Index extends Component {
   // 小程序转发功能
   onShareAppMessage(res) {
     if (res.from === 'button') {
-      console.log(res.target)
     }
     return {
-      title: '自定义转发标题',
+      title: 'F1翻班表小程序转发',
       path: '/pages/index/index'
     }
   }
